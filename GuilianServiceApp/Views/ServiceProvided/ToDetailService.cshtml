@@ -1,0 +1,25 @@
+﻿@model GuilianServiceApp.Models.ServiceProvided
+
+@if (!string.IsNullOrEmpty((string)TempData["Message"]))
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+
+<h2 class="text-center">Details of Service Provided</h2>
+
+<div class="text-center">
+    <h4>Title: @Model.Title</h4>
+    <p>Category: @Model.Category</p>
+    <p>Description: @Model.Description</p>
+    <p>Provider: @Model.Provider.Username</p>
+    <br />
+    <br />
+    @if (!string.IsNullOrEmpty((string)ViewData["user"]))
+    {
+        <a class="btn" style="border: 2px solid grey" asp-controller="User" asp-action="Main">Home</a>
+    }
+    else
+    {
+        <a class="btn" style="border: 2px solid grey" asp-controller="Home" asp-action="Index">Home</a>
+    }
+</div>

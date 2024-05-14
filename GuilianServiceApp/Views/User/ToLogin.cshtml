@@ -1,0 +1,29 @@
+﻿@model User
+@if (!string.IsNullOrEmpty((string)TempData["Message"]))
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+@{
+    <h1 style="text-align:center">Login page</h1>
+    <br />
+    <div class="text-center">
+        <form asp-controller="User" asp-action="ToLogin" method="post">
+            <label asp-for="Username">Username :</label>
+            <input asp-for="Username" />
+            <span asp-validation-for="Username" style="color:red"></span>
+            <br />
+            <label asp-for="Password">Password :</label>
+            <input asp-for="Password" />
+            <span asp-validation-for="Password" style="color:red"></span>
+            <br />
+            <input type="submit" value="Confirm" class="btn" style="border: 2px solid grey" />
+        </form>
+    </div>
+    <div class="text-center">
+        <br />
+        <a class="btn" style="border: 2px solid grey" asp-controller="User" asp-action="ToRegister">Register </a>
+        <br />
+        <br />
+        <a class="btn" style="border: 2px solid grey" asp-controller="Home" asp-action="Index">Home</a>
+    </div>
+}

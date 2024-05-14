@@ -1,0 +1,33 @@
+﻿@model GuilianServiceApp.ViewModels.AddServiceProvidedViewModel
+@if (!string.IsNullOrEmpty((string)TempData["Message"]))
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+<h1>Give service to users</h1>
+<br />
+<form method="post" asp-controller="ServiceProvided" asp-action="ToGiveServicesToUsers">
+    <table>
+        <tr>
+            <td><label asp-for="Title">Title :</label></td>
+            <td><input asp-for="Title"></td>
+            <td><span asp-validation-for="Title" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Category">Category :</label></td>
+            <td><input asp-for="Category"></td>
+            <td><span asp-validation-for="Category" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Description">Description :</label></td>
+            <td><textarea asp-for="Description"></textarea></td>
+            <td><span asp-validation-for="Description" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Next" /></td>
+            <br />
+            <br />
+            <a class="btn" style="border: 2px solid grey" asp-controller="User" asp-action="Main">Home</a>
+        </tr>
+    </table>
+</form>
+

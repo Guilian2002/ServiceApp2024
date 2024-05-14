@@ -1,0 +1,89 @@
+﻿@model Tuple<List<GuilianServiceApp.Models.ActiveDuty>, List<GuilianServiceApp.Models.ServiceProvided>>
+
+@if (!string.IsNullOrEmpty((string)TempData["Message"]))
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+@(ViewData["User"] + " this is all services you have provided")
+<br />
+<h1>Services Provided</h1>
+<form method="get" asp-controller="ActiveDuty" asp-action="Search">
+    <input type="text" name="keyword" placeholder="Search for services...">
+    <input type="hidden" name="whichView" value="2" />
+    <button type="submit">Search</button>
+</form>
+<h2>Active Duties</h2>
+@if (Model.Item1.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Deadline</th>
+                <th>Status</th>
+                <th>Category</th>
+                <th>Hours of service</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var activeDuty in Model.Item1)
+            {
+                <tr>
+                    <td>@activeDuty.Title</td>
+                    <td>@activeDuty.Deadline.ToShortDateString()</td>
+                    <td>@activeDuty.CurrentStatus.ToString()</td>
+                    <td>@activeDuty.Category</td>
+                    <td>@activeDuty.CreditsHours</td>
+                    <td>
+                        <a class="btn" style="border: 2px solid grey" asp-controller="ActiveDuty"
+                           asp-action="ToDetailService" asp-route-id="@activeDuty.Id">Detail Service</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>You have not provided any services yet.</p>
+}
+
+<h2>Service Provided</h2>
+<form method="get" asp-controller="ActiveDuty" asp-action="Search">
+    <input type="text" name="keyword" placeholder="Search for services...">
+    <input type="hidden" name="whichView" value="3" />
+    <button type="submit">Search</button>
+</form>
+@if (Model.Item2.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var serviceProvided in Model.Item2)
+            {
+                <tr>
+                    <td>@serviceProvided.Title</td>
+                    <td>@serviceProvided.Category</td>
+                    <td>
+                        <a class="btn" style="border: 2px solid grey" asp-controller="ServiceProvided"
+                           asp-action="ToDetailService" asp-route-id="@serviceProvided.Id">Detail Service</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>You have not provided any services yet.</p>
+}
+<br />
+<br />
+<a class="btn" style="border: 2px solid grey" asp-controller="User" asp-action="Main">Home</a>

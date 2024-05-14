@@ -1,0 +1,47 @@
+﻿@model GuilianServiceApp.ViewModels.AddUserViewModel
+<h1>Register your own account</h1>
+<br />
+<form method="post" asp-controller="User" asp-action="ToRegister">
+    <table>
+        <tr>
+            <td><label asp-for="Firstname"></label></td>
+            <td><input asp-for="Firstname"></td>
+            <td><span asp-validation-for="Firstname" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Lastname"></label></td>
+            <td><input asp-for="Lastname"></td>
+            <td><span asp-validation-for="Lastname"class="text-danger"></span></td>
+
+        </tr>
+        <tr>
+            <td><label asp-for="Username"></label></td>
+            <td><input asp-for="Username"></td>
+            <td><span asp-validation-for="Username" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Address"></label></td>
+            <td><input asp-for="Address"></td>
+            <td><span asp-validation-for="Address" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Email"></label></td>
+            <td><input asp-for="Email"></td>
+            <td><span asp-validation-for="Email"class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Password"></label></td>
+            <td><input asp-for="Password"></td>
+            <td><span asp-validation-for="Password"class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Register" class="btn" style="border: 2px solid grey"  /></td>
+            <br />
+            <br />
+            <a class="btn" style="border: 2px solid grey" asp-controller="Home" asp-action="Index">Home</a>
+            <br />
+            <br />
+            <a class="btn" style="border: 2px solid grey" asp-controller="User" asp-action="ToLogin">Login</a>
+        </tr>
+    </table>
+</form>

@@ -1,0 +1,27 @@
+﻿@model GuilianServiceApp.ViewModels.AddActiveDutyViewModel
+@if (!string.IsNullOrEmpty((string)TempData["Message"]))
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+<h1>Accept a Service</h1>
+<br />
+<form method="post" asp-controller="ActiveDuty" asp-action="ToAcceptAService">
+    <table>
+        <tr>
+            <td><label asp-for="Deadline">Deadline :</label></td>
+            <td><input type="datetime-local" asp-for="Deadline" value="@DateTime.Now"></td>
+            <td><span asp-validation-for="Deadline" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="CreditsHours">Hours of Service :</label></td>
+            <td><input asp-for="CreditsHours" min="1" max="12"></td>
+            <td><span asp-validation-for="CreditsHours" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Confirm the service" /></td>
+            <br />
+            <br />
+            <a class="btn" style="border: 2px solid grey" asp-controller="User" asp-action="Main">Home</a>
+        </tr>
+    </table>
+</form>
