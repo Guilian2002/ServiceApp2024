@@ -7,15 +7,6 @@
 @(ViewData["user"] + " this is all services you can take")
 <br />
 <br />
-@if (!string.IsNullOrEmpty((string)ViewData["User"]))
-{
-    <a class="btn" style="border: 2px solid grey" asp-controller="User" asp-action="Main">Home</a>
-}
-else
-{
-    <a class="btn" style="border: 2px solid grey" asp-controller="Home" asp-action="Index">Home</a>
-}
-<br />
 <h1>Find Services</h1>
 @if (!string.IsNullOrEmpty((string)ViewData["User"]))
 {
