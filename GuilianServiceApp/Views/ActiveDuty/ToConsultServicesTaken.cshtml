@@ -41,7 +41,7 @@
                                asp-action="ChangeStatus" asp-route-id="@activeDuty.Id">Next Step</a>
                             <br />
                         }
-                        else if (activeDuty.CurrentStatus == Status.Completed)
+                        else if (activeDuty.CurrentStatus == Status.Completed && activeDuty.Feedback == null)
                         {
                             <a class="btn" style="border: 2px solid grey" asp-controller="Feedback"
                                asp-action="ToReviewCompletedServices" asp-route-id="@activeDuty.Id">Give feedback</a>

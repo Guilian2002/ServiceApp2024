@@ -48,13 +48,16 @@ namespace GuilianServiceApp.DAL
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT ad.*, u.id as ProviderId, u.username, u.email, u.address " +
-                               "FROM [ActiveDuty] ad " +
-                               "INNER JOIN [User] u ON ad.FK_Provider = u.id " +
-                               "WHERE ad.FK_Requester = @requesterId";
+                string query = "SELECT ad.*, u.id as ProviderId, u.username, u.email, u.address, " +
+                       "fb.id as FeedbackId, fb.commentary, fb.currentRating " +
+                       "FROM [ActiveDuty] ad " +
+                       "INNER JOIN [User] u ON ad.FK_Provider = u.id " +
+                       "LEFT JOIN [Feedback] fb ON ad.id = fb.FK_ActiveDuty " +
+                       "WHERE ad.FK_Requester = @requesterId";
 
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
+                    Feedback feedback = new Feedback();
                     cmd.Parameters.AddWithValue("@requesterId", requester.Id);
 
                     connection.Open();
@@ -70,7 +73,16 @@ namespace GuilianServiceApp.DAL
                                 reader.GetString("address"),
                                 reader.GetString("email")
                             );
-
+                            if (!reader.IsDBNull("FeedbackId"))
+                            {
+                                feedback = new Feedback
+                                (
+                                    reader.GetInt32(reader.GetOrdinal("FeedbackId")),
+                                    reader.GetString("commentary"),
+                                    (Rating)Enum.Parse(typeof(Rating), reader.GetString("currentRating")),
+                                    null
+                                );
+                            }
                             ActiveDuty activeDuty = new ActiveDuty
                             (
                                 reader.GetInt32("id"),
@@ -81,7 +93,8 @@ namespace GuilianServiceApp.DAL
                                 reader.GetDateTime("deadline"),
                                 reader.GetInt32("creditsHours"),
                                 requester,
-                                provider
+                                provider,
+                                feedback
                             );
 
                             activeDutyList.Add(activeDuty);
